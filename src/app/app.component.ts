@@ -13,9 +13,31 @@ import {
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
   animations: [
-    // animation triggers go here
+    trigger('openClose', [
+      state('open', style({
+        height: '200px',
+        opacity: 1,
+        backgroundColor: 'yellow'
+      })),
+      state('closed', style({
+        height: '100px',
+        opacity: 0.5,
+        backgroundColor: 'green'
+      })),
+      transition('open => closed', [
+        animate('5s')
+      ]),
+      transition('closed => open', [
+        animate('2s')
+      ]),
+    ]),
   ]
 })
 export class AppComponent {
-  title = 'app';
+  isOpen = true;
+
+  toggle() {
+    this.isOpen = !this.isOpen;
+  }
+
 }
