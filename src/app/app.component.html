@@ -20,8 +20,17 @@
     choose    the    position   in   the   initial   circle
     to avoid execution.
   </p>
+  <form>
+      <div class="form-group">
+        <label for="people">Number of People</label>
+        <input type="text" class="form-control" id="people"> <br/><br/>
+        <label for="interval">Kill Interval</label>
+        <input type="text" class="form-control" id="interval">
+      </div><br/><br/>
+      <button (click)="onSubmit()">Submit</button>
+  </form>
 </div>
 <div class="block-content">
-  <div [@openClose]="isOpen ? 'open' : 'closed'" class="circle"  (click)="toggle()"></div>
+    <div *ngFor="let element of array"><div [@openClose]="isOpen ? 'open' : 'closed'" class="circle"  (click)="toggle()"></div></div>
 </div>
 </div>

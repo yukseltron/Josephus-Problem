@@ -15,17 +15,15 @@ import {
   animations: [
     trigger('openClose', [
       state('open', style({
-        height: '200px',
+        height: '100px',
         opacity: 1,
-        backgroundColor: 'yellow'
+        backgroundColor: 'white'
       })),
       state('closed', style({
-        height: '100px',
-        opacity: 0.5,
-        backgroundColor: 'green'
+        opacity: 0,
       })),
       transition('open => closed', [
-        animate('5s')
+        animate('2s')
       ]),
       transition('closed => open', [
         animate('2s')
@@ -39,5 +37,9 @@ export class AppComponent {
   toggle() {
     this.isOpen = !this.isOpen;
   }
+
+  array = [0];
+
+  onSubmit() { this.array.push(0)}
 
 }
