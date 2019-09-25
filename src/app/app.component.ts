@@ -39,6 +39,8 @@ export class AppComponent {
   }
 
   array = [0];
+  interval = "";
+  people = 0;
 
   onSubmit() { this.array.push(0)}
 
