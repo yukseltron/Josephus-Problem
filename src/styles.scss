@@ -1,1 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville|Lora|VT323');
+
+body {
+  background-color: black;
+  color: white;
+
+  .container {
+    display: grid;
+
+    grid-template-columns: 50px 1fr 3fr 50px;
+    grid-template-rows: auto;
+    grid-row-gap: 10px;
+    grid-column-gap: 50px;
+    grid-template-areas:
+    ". intro content content";
+
+    .block-intro {
+      display: flex;
+      flex-direction: column;
+      grid-area: intro;
+
+      h1 {
+        font-family: 'Libre Baskerville', sans-serif;
+        font-size: 300%;
+      }
+
+      .p-intro {
+        grid-area: intro;
+      }
+    }
+
+    .block-content {
+      grid-area: content;
+    }
+  }
+}
