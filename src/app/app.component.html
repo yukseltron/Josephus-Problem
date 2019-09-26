@@ -20,17 +20,21 @@
     choose    the    position   in   the   initial   circle
     to avoid execution.
   </p>
-  <form>
+  <form (ngSubmit)="onSubmit()" #valueForm="ngForm">
       <div class="form-group">
         <label for="people">Number of People</label>
-        <input type="text" class="form-control" id="people"> <br/><br/>
+        <input type="text" class="form-control" id="people"
+               required  [(ngModel)]="people"
+                name="people"> <br/><br/>
         <label for="interval">Kill Interval</label>
-        <input type="text" class="form-control" id="interval">
+        <input type="text" class="form-control" id="interval"
+               required  [(ngModel)]="interval"
+                name="interval">
       </div><br/><br/>
       <button type="submit" (click)="onSubmit()">Submit</button>
   </form>
 </div>
-<div class="block-content">
-    <div *ngFor="let element of array"><div [@openClose]="isOpen ? 'open' : 'closed'" class="circle"  (click)="toggle()"></div></div>
+<div class="block-content circle-container" id="block-content">
+    <div *ngFor="let element of array"><div [@openClose]="isOpen ? 'open' : 'closed'" class="circle"  (click)="toggle()">{{element}}</div></div>
 </div>
 </div>

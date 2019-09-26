@@ -38,10 +38,22 @@ export class AppComponent {
     this.isOpen = !this.isOpen;
   }
 
-  array = [0];
+  array = [1];
   interval = "";
-  people = 0;
+  people = "";
 
-  onSubmit() { this.array.push(0)}
+  onSubmit() {
+      this.array = [1];
+      for (let i = 2; i <= this.people; i++) {
+        this.array.push(i);
+      }
+      setCircles(this.people);
+  }
+
+  setCircles(amount: string) {
+      amount += "em";
+      console.log(amount);
+      document.querySelector("block-content").style.setProperty('$amount', amount);
+  }
 
 }
