@@ -44,9 +44,10 @@ export class AppComponent {
           this.theta.push((frags / 180) * i * Math.PI);
       }
       let n = +this.people;
-      let rx = 50;
-      let ry = 50;
+      let rx = 250;
+      let ry = 250;
       let id = 'main';
+      let w = 500/n;
 
       let main = document.getElementById(id);
       let mainHeight = parseInt(window.getComputedStyle(main).height.slice(0, -2));
@@ -59,8 +60,8 @@ export class AppComponent {
           circleArray[i].posy = Math.round(ry * (Math.sin(this.theta[i]))) + 'px';
           circleArray[i].style.position = "absolute";
           circleArray[i].style.backgroundColor = 'white';
-          circleArray[i].style.width = '50px';
-          circleArray[i].style.height = '50px';
+          circleArray[i].style.width = w + 'px';
+          circleArray[i].style.height = w + 'px';
           circleArray[i].style.borderRadius = '50%';
           console.log(circle);
           circleArray[i].style.top = ((mainHeight / 2) - parseInt(circleArray[i].posy.slice(0, -2))) + 'px';
