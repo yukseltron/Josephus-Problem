@@ -32,28 +32,42 @@ import {
   ]
 })
 export class AppComponent {
-  isOpen = true;
-
-  toggle() {
-    this.isOpen = !this.isOpen;
-  }
-
-  array = [1];
-  interval = "";
-  people = "";
+  interval = 0;
+  people = 0;
+  theta = [];
 
   onSubmit() {
-      this.array = [1];
-      for (let i = 2; i <= this.people; i++) {
-        this.array.push(i);
+      document.getElementById('main').innerHTML = '';
+      this.theta = [];
+      let frags = 360 / this.people;
+      for (let i = 0; i <= this.people; i++) {
+          this.theta.push((frags / 180) * i * Math.PI);
       }
-      setCircles(this.people);
-  }
+      let n = +this.people;
+      let rx = 50;
+      let ry = 50;
+      let id = 'main';
 
-  setCircles(amount: string) {
-      amount += "em";
-      console.log(amount);
-      document.querySelector("block-content").style.setProperty('$amount', amount);
+      let main = document.getElementById(id);
+      let mainHeight = parseInt(window.getComputedStyle(main).height.slice(0, -2));
+      let circleArray = [];
+      for (let i = 0; i < n; i++) {
+          let circle = document.createElement('div');
+          circle.className = 'circle number' + i;
+          circleArray.push(circle);
+          circleArray[i].posx = Math.round(rx * (Math.cos(this.theta[i]))) + 'px';
+          circleArray[i].posy = Math.round(ry * (Math.sin(this.theta[i]))) + 'px';
+          circleArray[i].style.position = "absolute";
+          circleArray[i].style.backgroundColor = 'white';
+          circleArray[i].style.width = '50px';
+          circleArray[i].style.height = '50px';
+          circleArray[i].style.borderRadius = '50%';
+          console.log(circle);
+          circleArray[i].style.top = ((mainHeight / 2) - parseInt(circleArray[i].posy.slice(0, -2))) + 'px';
+          circleArray[i].style.left = ((mainHeight / 2) + parseInt(circleArray[i].posx.slice(0, -2))) + 'px';
+          main.appendChild(circleArray[i]);
+      }
+
   }
 
 }
