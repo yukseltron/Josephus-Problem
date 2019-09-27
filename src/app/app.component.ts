@@ -15,9 +15,7 @@ import {
   animations: [
     trigger('openClose', [
       state('open', style({
-        height: '100px',
         opacity: 1,
-        backgroundColor: 'white'
       })),
       state('closed', style({
         opacity: 0,
@@ -35,9 +33,10 @@ export class AppComponent {
   interval = 0;
   people = 0;
   theta = [];
+  isOpen = [];
+  circleArray = [];
 
   onSubmit() {
-      document.getElementById('main').innerHTML = '';
       this.theta = [];
       let frags = 360 / this.people;
       for (let i = 0; i <= this.people; i++) {
@@ -54,7 +53,8 @@ export class AppComponent {
       let circleArray = [];
       for (let i = 0; i < n; i++) {
           let circle = document.createElement('div');
-          circle.className = 'circle number' + i;
+          circle.className = 'circle';
+          circle.id = 'number' + i;
           circleArray.push(circle);
           circleArray[i].posx = Math.round(rx * (Math.cos(this.theta[i]))) + 'px';
           circleArray[i].posy = Math.round(ry * (Math.sin(this.theta[i]))) + 'px';
@@ -63,12 +63,18 @@ export class AppComponent {
           circleArray[i].style.width = w + 'px';
           circleArray[i].style.height = w + 'px';
           circleArray[i].style.borderRadius = '50%';
-          console.log(circle);
           circleArray[i].style.top = ((mainHeight / 2) - parseInt(circleArray[i].posy.slice(0, -2))) + 'px';
           circleArray[i].style.left = ((mainHeight / 2) + parseInt(circleArray[i].posx.slice(0, -2))) + 'px';
-          main.appendChild(circleArray[i]);
       }
+      console.log(this.circleArray[0]);
+      this.circleArray = circleArray;
+
+/*
+      for (let i = 0; i < circleArray.length; i += interval) {
+          if (i += interval > circleArray.length) {
+              i = ((i += interval)  - circleArray.length);
+          }
+      } */
 
   }
-
 }
