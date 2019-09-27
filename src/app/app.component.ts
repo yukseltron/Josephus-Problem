@@ -5,6 +5,8 @@ import {
   state,
   style,
   animate,
+  stagger,
+  query,
   transition,
   // ...
 } from '@angular/animations';
@@ -14,21 +16,17 @@ import {
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
   animations: [
-    trigger('openClose', [
-      state('open', style({
-        opacity: 1,
-      })),
-      state('closed', style({
-        opacity: 0,
-      })),
-      transition('open => closed', [
-        animate('2s')
+      trigger('openClose', [
+        transition(':enter', [
+          query('.block-content', [
+            style({opacity: 1, transform: 'none'}),
+            stagger(-500, [
+              animate('2s', style({ opacity: 0, transform: 'none' }))
+            ])
+          ], { optional: true })
+        ])
       ]),
-      transition('closed => open', [
-        animate('2s')
-      ]),
-    ]),
-  ]
+    ]
 })
 export class AppComponent {
   interval = 0;
@@ -37,6 +35,7 @@ export class AppComponent {
   isOpen = [];
   circleArray = [];
   styleArray = [];
+  circles = new Circular([]);
 
 
 
@@ -91,15 +90,21 @@ export class AppComponent {
 
   }
 
+  start() {
+      this.toggle();
+  }
+
   toggle() {
-      let circles = new Circular(this.isOpen);
-      for (let i = 0; i < circles.arr.length && circles.arr[i] != false; i++) {
-          console.log(i,circles.current(), circles.arr[i] != false);
-          for (let j = 0; j < this.interval; j++) {
-              circles.next();
-              console.log("p",i,circles.current(), circles.arr[i] != false);
+      this.circles = new Circular(this.isOpen);
+      for (let i = 0; i < this.circles.arr.length; i++) {
+          if (this.circles.arr[i] != false) {
+              console.log("B",i,this.circles.current(), this.circles.arr[i] != false);
+              for (let j = 0; j < this.interval; j++) {
+                  this.circles.next();
+              }
+              this.circles.change();
+              console.log("A",i,this.circles.current(), this.circles.arr[i] != false);
           }
-          circles.change();
       }
   }
 

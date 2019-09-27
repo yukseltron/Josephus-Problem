@@ -33,9 +33,9 @@
       </div><br/><br/>
       <button type="submit" (click)="onSubmit()">Submit</button>
   </form>
-  <h3 (click)="toggle()">Start</h3>
+  <h3 (click)="start()">Start</h3>
 </div>
 <div class="block-content circle-container" id="main">
-    <div *ngFor="let element of circleArray; index as i;" [ngStyle]="styleArray[i]" [@openClose]="isOpen[i] ? 'open' : 'closed'">{{element.innerHTML}}</div>
+    <div *ngFor="let element of circleArray; index as i;" [ngStyle]="styleArray[i]" [@openClose]="circles.arr[i] ? 'closed' : 'open'" [ngClass]="circle">{{element.innerHTML}}</div>
 </div>
 </div>
