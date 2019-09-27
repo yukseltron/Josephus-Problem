@@ -35,6 +35,9 @@ export class AppComponent {
   theta = [];
   isOpen = [];
   circleArray = [];
+  styleArray = [];
+
+
 
   onSubmit() {
       this.theta = [];
@@ -51,6 +54,7 @@ export class AppComponent {
       let main = document.getElementById(id);
       let mainHeight = parseInt(window.getComputedStyle(main).height.slice(0, -2));
       let circleArray = [];
+      let styleArray = [];
       for (let i = 0; i < n; i++) {
           let circle = document.createElement('div');
           circle.className = 'circle';
@@ -65,11 +69,17 @@ export class AppComponent {
           circleArray[i].style.borderRadius = '50%';
           circleArray[i].style.top = ((mainHeight / 2) - parseInt(circleArray[i].posy.slice(0, -2))) + 'px';
           circleArray[i].style.left = ((mainHeight / 2) + parseInt(circleArray[i].posx.slice(0, -2))) + 'px';
+          let style = {
+              position: 'absolute', backgroundColor: 'white', width: w + 'px', height: w + 'px', borderRadius: '50%',
+              top: ((mainHeight / 2) - parseInt(circleArray[i].posy.slice(0, -2))) + 'px',
+              left: ((mainHeight / 2) + parseInt(circleArray[i].posx.slice(0, -2))) + 'px'}
+          styleArray.push(style);
       }
       console.log(this.circleArray[0]);
       this.circleArray = circleArray;
+      this.styleArray = styleArray;
 
-/*
+      /*
       for (let i = 0; i < circleArray.length; i += interval) {
           if (i += interval > circleArray.length) {
               i = ((i += interval)  - circleArray.length);

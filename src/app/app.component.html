@@ -35,6 +35,6 @@
   </form>
 </div>
 <div class="block-content circle-container" id="main">
-    <div *ngFor="let element of circleArray; index as i;">{{element.innerHTML}}</div>
+    <div *ngFor="let element of circleArray; index as i;" [ngStyle]="styleArray[i]">{{element.innerHTML}}</div>
 </div>
 </div>
