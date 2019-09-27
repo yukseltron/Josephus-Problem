@@ -41,6 +41,7 @@ export class AppComponent {
 
   onSubmit() {
       this.theta = [];
+      this.isOpen = [];
       let frags = 360 / this.people;
       for (let i = 0; i <= this.people; i++) {
           this.theta.push((frags / 180) * i * Math.PI);
@@ -60,6 +61,7 @@ export class AppComponent {
           circle.className = 'circle';
           circle.id = 'number' + i;
           circleArray.push(circle);
+          this.isOpen.push(true);
           circleArray[i].posx = Math.round(rx * (Math.cos(this.theta[i]))) + 'px';
           circleArray[i].posy = Math.round(ry * (Math.sin(this.theta[i]))) + 'px';
           circleArray[i].style.position = "absolute";
@@ -86,5 +88,10 @@ export class AppComponent {
           }
       } */
 
+  }
+
+  toggle(i: number) {
+      this.isOpen[i] = !this.isOpen[i];
+      console.log(this.isOpen[i]);
   }
 }

@@ -33,8 +33,9 @@
       </div><br/><br/>
       <button type="submit" (click)="onSubmit()">Submit</button>
   </form>
+  <h3 (click)="toggle(4)">Start</h3>
 </div>
 <div class="block-content circle-container" id="main">
-    <div *ngFor="let element of circleArray; index as i;" [ngStyle]="styleArray[i]">{{element.innerHTML}}</div>
+    <div *ngFor="let element of circleArray; index as i;" [ngStyle]="styleArray[i]" [@openClose]="isOpen[i] ? 'open' : 'closed'">{{element.innerHTML}}</div>
 </div>
 </div>
