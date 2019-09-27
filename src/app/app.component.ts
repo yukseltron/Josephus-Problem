@@ -1,4 +1,5 @@
 import { Component, HostBinding } from '@angular/core';
+import {Circular} from './circular';
 import {
   trigger,
   state,
@@ -90,8 +91,23 @@ export class AppComponent {
 
   }
 
-  toggle(i: number) {
-      this.isOpen[i] = !this.isOpen[i];
-      console.log(this.isOpen[i]);
+  toggle() {
+      let circles = new Circular(this.isOpen);
+      for (let i = 0; i < circles.arr.length && circles.arr[i] != false; i++) {
+          console.log(i,circles.current(), circles.arr[i] != false);
+          for (let j = 0; j < this.interval; j++) {
+              circles.next();
+              console.log("p",i,circles.current(), circles.arr[i] != false);
+          }
+          circles.change();
+      }
+  }
+
+  wait(ms: number){
+     let start = new Date().getTime();
+     let end = start;
+     while(end < start + ms) {
+       end = new Date().getTime();
+    }
   }
 }
