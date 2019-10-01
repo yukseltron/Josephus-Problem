@@ -22,20 +22,20 @@
   </p>
   <form (ngSubmit)="onSubmit()" #valueForm="ngForm">
       <div class="form-group">
-        <label for="people">Number of People</label>
+        <label for="people">Enter Number of People</label>
         <input type="text" class="form-control" id="people"
                required  [(ngModel)]="people"
                 name="people"> <br/><br/>
-        <label for="interval">Kill Interval</label>
+        <label for="interval">Enter Kill Interval</label>
         <input type="text" class="form-control" id="interval"
                required  [(ngModel)]="interval"
                 name="interval">
       </div><br/><br/>
       <button type="submit" (click)="onSubmit()">Submit</button>
   </form>
-  <h3 (click)="start()">Start</h3>
+  <button (click)="start()">Start</button>
 </div>
 <div class="block-content circle-container" id="main">
-    <div *ngFor="let element of circleArray; index as i;" [ngStyle]="styleArray[i]" [@openClose]="circles.arr[i] ? 'closed' : 'open'" [ngClass]="circle">{{element.innerHTML}}</div>
+    <div *ngFor="let element of circleArray; index as i;" [ngStyle]="styleArray[i]" [@openClose]="isOpen[i] ? 'open' : 'closed'">{{element.innerHTML}}</div>
 </div>
 </div>

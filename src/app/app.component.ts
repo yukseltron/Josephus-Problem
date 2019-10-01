@@ -16,17 +16,24 @@ import {
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
   animations: [
-      trigger('openClose', [
-        transition(':enter', [
-          query('.block-content', [
-            style({opacity: 1, transform: 'none'}),
-            stagger(-500, [
-              animate('2s', style({ opacity: 0, transform: 'none' }))
-            ])
-          ], { optional: true })
-        ])
+    trigger('openClose', [
+      // ...
+      state('open', style({
+        opacity: 1
+      })),
+      state('closed', style({
+        opacity: 0
+      })),
+      state('default', style({
+      })),
+      transition('open => closed', [
+        animate('2s')
       ]),
-    ]
+      transition('closed => open', [
+        animate('2s')
+      ]),
+    ]),
+  ]
 })
 export class AppComponent {
   interval = 0;
@@ -35,18 +42,16 @@ export class AppComponent {
   isOpen = [];
   circleArray = [];
   styleArray = [];
-  circles = new Circular([]);
-
 
 
   onSubmit() {
       this.theta = [];
-      this.isOpen = [];
+      let isOpen = [];
       let frags = 360 / this.people;
       for (let i = 0; i <= this.people; i++) {
           this.theta.push((frags / 180) * i * Math.PI);
       }
-      let n = +this.people;
+      let n = this.people;
       let rx = 250;
       let ry = 250;
       let id = 'main';
@@ -61,7 +66,7 @@ export class AppComponent {
           circle.className = 'circle';
           circle.id = 'number' + i;
           circleArray.push(circle);
-          this.isOpen.push(true);
+          isOpen.push(true);
           circleArray[i].posx = Math.round(rx * (Math.cos(this.theta[i]))) + 'px';
           circleArray[i].posy = Math.round(ry * (Math.sin(this.theta[i]))) + 'px';
           circleArray[i].style.position = "absolute";
@@ -77,35 +82,37 @@ export class AppComponent {
               left: ((mainHeight / 2) + parseInt(circleArray[i].posx.slice(0, -2))) + 'px'}
           styleArray.push(style);
       }
-      console.log(this.circleArray[0]);
       this.circleArray = circleArray;
       this.styleArray = styleArray;
-
-      /*
-      for (let i = 0; i < circleArray.length; i += interval) {
-          if (i += interval > circleArray.length) {
-              i = ((i += interval)  - circleArray.length);
-          }
-      } */
-
+      this.isOpen = isOpen;
   }
 
   start() {
-      this.toggle();
-  }
-
-  toggle() {
-      this.circles = new Circular(this.isOpen);
-      for (let i = 0; i < this.circles.arr.length; i++) {
-          if (this.circles.arr[i] != false) {
-              console.log("B",i,this.circles.current(), this.circles.arr[i] != false);
-              for (let j = 0; j < this.interval; j++) {
-                  this.circles.next();
-              }
-              this.circles.change();
-              console.log("A",i,this.circles.current(), this.circles.arr[i] != false);
+      let list = [];
+      for (let i = 0; i < this.people; i++) {
+          list.push(i);
+      }
+      let circles = new Circular(list);
+      let x = 1;
+      while (circles.arr.length > 1) {
+          console.log("b",circles.arr.length, x, circles.current());
+          if (x % this.interval == 0) {
+              let index = circles.current();
+              circles.next();
+              x += 1;
+              this.toggle(circles.arr[index]);
+              circles.arr.splice(index,1);
+          } else {
+              circles.next();
+              x += 1;
           }
       }
+
+  }
+
+  toggle(index: number) {
+      this.isOpen[index] = false;
+      console.log("done",index, this.isOpen);
   }
 
   wait(ms: number){

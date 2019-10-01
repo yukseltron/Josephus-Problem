@@ -3,13 +3,14 @@ export class Circular{
 	arr = [];
 	currentIndex = 0;
 
-  constructor(arr: boolean[]) {
+  constructor(arr: any[]) {
 	  this.arr = arr;
 	  this.currentIndex = 0;
 }
 
   next(){
-	let i = this.currentIndex, arr = this.arr;
+	let i = this.currentIndex;
+	let arr = this.arr;
 	this.currentIndex = i < arr.length-1 ? i+1 : 0;
   }
 
@@ -17,8 +18,8 @@ export class Circular{
 	return this.currentIndex;
   }
 
-  change(){
-	this.arr[this.currentIndex] = false;
+  remove(index: number){
+	this.arr.splice(index,1);
   }
 
   wait(ms: number){

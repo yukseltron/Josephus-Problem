@@ -16,4 +16,18 @@
 
 button {
 	background-color: white;
+	border: 1px solid black;
+	width: 100px;
+	margin-bottom: 20px;
+
+	&:hover {
+		color: white;
+		background-color: black;
+		border: 1px solid white;
+	}
+}
+
+input {
+	width: 25px;
+	margin-left: 5px;
 }
