@@ -3,16 +3,17 @@
 body {
   background-color: black;
   color: white;
+  margin-bottom: 200px;
 
   .container {
     display: grid;
 
-    grid-template-columns: 50px 1fr 3fr 50px;
+    grid-template-columns: 50px 1fr 1fr 3fr 50px;
     grid-template-rows: auto;
     grid-row-gap: 10px;
     grid-column-gap: 50px;
     grid-template-areas:
-    ". intro content content";
+    ". intro sequence content content";
 
     .block-intro {
       display: flex;
@@ -32,6 +33,12 @@ body {
     .block-content {
       grid-area: content;
     }
+
+	.results {
+		grid-area: sequence;
+		visibility: hidden;
+		margin-top: 250px;
+	}
   }
 }
 

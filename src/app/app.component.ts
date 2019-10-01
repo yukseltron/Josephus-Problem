@@ -42,9 +42,12 @@ export class AppComponent {
   isOpen = [];
   circleArray = [];
   styleArray = [];
+  deaths = [];
+  survivor = '';
 
 
   onSubmit() {
+      (<HTMLElement>document.querySelector('#results')).style.visibility = 'hidden';
       this.theta = [];
       let isOpen = [];
       let frags = 360 / this.people;
@@ -88,6 +91,9 @@ export class AppComponent {
   }
 
   start() {
+      (<HTMLElement>document.querySelector('#results')).style.visibility = 'visible';
+      this.deaths = this.josephus(this.people, this.interval);
+      this.survivor = this.deaths.pop();
       let list = [];
       for (let i = 0; i < this.people; i++) {
           list.push(i);
@@ -95,7 +101,7 @@ export class AppComponent {
       let circles = new Circular(list);
       let x = 1;
       while (circles.arr.length > 1) {
-          console.log("b",circles.arr.length, x, circles.current());
+          //console.log("b",circles.arr.length, x, circles.current());
           if (x % this.interval == 0) {
               let index = circles.current();
               circles.next();
@@ -107,19 +113,29 @@ export class AppComponent {
               x += 1;
           }
       }
-
   }
 
   toggle(index: number) {
       this.isOpen[index] = false;
-      console.log("done",index, this.isOpen);
+      //console.log("done",index, this.isOpen);
   }
 
-  wait(ms: number){
-     let start = new Date().getTime();
-     let end = start;
-     while(end < start + ms) {
-       end = new Date().getTime();
-    }
+  josephus (n: number, interval: number) {
+      let people = [];
+      let deaths = [];
+
+      for (let i = 0; i < n; i += 1) {
+          people[i] = i;
+      }
+
+      let index = 0;
+      let len = people.length;
+      while (len = people.length) {
+          index = (index + interval) % len;
+          deaths.push(people[index]);
+          people.splice(index, 1);
+      }
+
+      return deaths;
   }
 }
