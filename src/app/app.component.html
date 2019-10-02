@@ -33,7 +33,7 @@
       </div><br/><br/>
       <button type="submit" (click)="onSubmit()">Submit</button>
   </form>
-  <button (click)="start();">Start</button>
+  <button (click)="onStart();">Start</button>
 </div>
 <div class="block-content circle-container" id="main">
     <div *ngFor="let element of circleArray; index as i;" [ngStyle]="styleArray[i]" [@openClose]="isOpen[i] ? 'open' : 'closed'">{{element.innerHTML}}</div>
@@ -41,7 +41,7 @@
 <div class="results" id="results">
     <h3>Survivor</h3>
     <p>{{survivor}}</p>
-    <h3>Deaths</h3>
+    <h3>Death Sequence</h3>
     <p *ngFor="let d of deaths">{{d}}</p>
 </div>
 </div>

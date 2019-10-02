@@ -45,6 +45,14 @@ export class AppComponent {
   deaths = [];
   survivor = '';
 
+  onStart() {
+      if (this.interval >= 1 && this.people >= 2) {
+          this.start();
+      } else {
+          alert("People must be at least 2 and Interval must be at least 1");
+      }
+  }
+
 
   onSubmit() {
       (<HTMLElement>document.querySelector('#results')).style.visibility = 'hidden';
@@ -123,19 +131,33 @@ export class AppComponent {
   josephus (n: number, interval: number) {
       let people = [];
       let deaths = [];
+      let counter = 0;
+      let index = 0;
 
       for (let i = 0; i < n; i += 1) {
-          people[i] = i;
+          people[i] = i+1;
       }
 
-      let index = 0;
-      let len = people.length;
-      while (len = people.length) {
-          index = (index + interval) % len;
-          deaths.push(people[index]);
-          people.splice(index, 1);
+      // Array index position
+      while (people.length > 0) {
+          // This is because 'array' is treated like a circular array
+          index = index % people.length;
+          counter += 1;
+          if (counter == interval) {
+              // Remove the element from the array and push onto the store.
+              // The first element is used, hence [0]
+              deaths.push(people.splice(index, 1)[0]);
+
+              // Reset the counter
+              counter = 0;
+
+              // Move back one index value
+              index--;
+          }
+          index++;
       }
 
       return deaths;
   }
+
 }
